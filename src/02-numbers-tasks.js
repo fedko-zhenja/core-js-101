@@ -19,8 +19,8 @@
  *   5, 10 => 50
  *   5, 5  => 25
  */
-function getRectangleArea(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleArea(width, height) {
+  return width * height;
 }
 
 
@@ -35,8 +35,8 @@ function getRectangleArea(/* width, height */) {
  *   3.14 => 19.729201864543903
  *   0    => 0
  */
-function getCircleCircumference(/* radius */) {
-  throw new Error('Not implemented');
+function getCircleCircumference(radius) {
+  return Math.PI * radius * 2;
 }
 
 /**
@@ -51,8 +51,9 @@ function getCircleCircumference(/* radius */) {
  *  10, 0  => 5
  *  -3, 3  => 0
  */
-function getAverage(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function getAverage(value1, value2) {
+  const res = ((value1 / 2) + (value2 / 2));
+  return res;
 }
 
 /**
@@ -70,8 +71,9 @@ function getAverage(/* value1, value2 */) {
  *   (0,0) (1,0)    => 1
  *   (-5,0) (10,-10) => 18.027756377319946
  */
-function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getDistanceBetweenPoints(x1, y1, x2, y2) {
+  const res = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+  return res;
 }
 
 /**
@@ -86,8 +88,9 @@ function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
  *   x + 8 = 0       => -8
  *   5*x = 0         => 0
  */
-function getLinearEquationRoot(/* a, b */) {
-  throw new Error('Not implemented');
+function getLinearEquationRoot(a, b) {
+  const solution = (-b) / a;
+  return solution;
 }
 
 
@@ -109,8 +112,17 @@ function getLinearEquationRoot(/* a, b */) {
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  const multX = x1 * x2;
+  const multY = y1 * y2;
+  const powX = [x1 ** 2, x2 ** 2];
+  const powY = [y1 ** 2, y2 ** 2];
+  const arccos = Math.acos(multX + multY);
+  const sqrRootVectX = Math.sqrt(powX[0] + powY[0]);
+  const sqrRootVectY = Math.sqrt(powX[1] + powY[1]);
+  const multVect = sqrRootVectX * sqrRootVectY;
+  const angle = arccos / multVect;
+  return angle;
 }
 
 /**
@@ -125,8 +137,14 @@ function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
  *     5     => 5
  *     0     => 0
  */
-function getLastDigit(/* value */) {
-  throw new Error('Not implemented');
+function getLastDigit(value) {
+  let res = 0;
+  if (Number.isInteger(value)) {
+    const str = String(value);
+    res = Number(str[str.length - 1]);
+  }
+
+  return res;
 }
 
 
@@ -141,8 +159,8 @@ function getLastDigit(/* value */) {
  *     '37'     => 37
  * '-525.5'     => -525.5
  */
-function parseNumberFromString(/* value */) {
-  throw new Error('Not implemented');
+function parseNumberFromString(value) {
+  return Number(value);
 }
 
 /**
@@ -158,8 +176,9 @@ function parseNumberFromString(/* value */) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelepipedDiagonal(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getParallelepipedDiagonal(a, b, c) {
+  const res = Math.sqrt((a ** 2) + (b ** 2) + (c ** 2));
+  return res;
 }
 
 
@@ -180,8 +199,49 @@ function getParallelepipedDiagonal(/* a, b, c */) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  let str = '';
+  let number = 0;
+  if (pow === 0) {
+    return num;
+  }
+
+  if (pow === 1) {
+    str = String(num).slice(0, String(num).length - 1);
+    number = Math.round(Number(str));
+    str = `${String(str)}0`;
+
+    if (Number(String(num)[String(num).length - 1]) > 5) {
+      number = Number(str) + 10;
+    } else {
+      number = Number(str);
+    }
+  }
+
+  if (pow === 2) {
+    str = String(num).slice(0, String(num).length - 2);
+    number = Math.round(Number(str));
+    str = `${String(number)}00`;
+
+    if (Number(String(num)[String(num).length - 1]) > 5) {
+      number = Number(str) + 100;
+    } else {
+      number = Number(str);
+    }
+  }
+
+  if (pow === 3) {
+    str = String(num).slice(0, String(num).length - 3);
+    number = Math.round(Number(str));
+    str = `${String(number)}000`;
+
+    if (Number(String(num)[String(num).length - 1]) > 5) {
+      number = Number(str) + 1000;
+    } else {
+      number = Number(str);
+    }
+  }
+  return number;
 }
 
 /**
@@ -201,8 +261,34 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(n) {
+  for (let i = 3; i * i <= n; i += 2) {
+    if (n % (i + 2) === 0) {
+      return false;
+    }
+
+    if (n % i === 0) {
+      return false;
+    }
+  }
+
+  if (n <= 1) {
+    return false;
+  }
+
+  if (n <= 3) {
+    return true;
+  }
+
+  if (n % 3 === 0) {
+    return false;
+  }
+
+  if (n % 2 === 0) {
+    return false;
+  }
+
+  return true;
 }
 
 /**
@@ -220,8 +306,14 @@ function isPrime(/* n */) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  if (Number.isNaN(Number(value))) {
+    return def;
+  }
+  if (typeof Number(value) === 'number') {
+    return Number(value);
+  }
+  return def;
 }
 
 module.exports = {
