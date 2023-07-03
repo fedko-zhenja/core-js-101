@@ -578,8 +578,20 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const newMap = new Map();
+  const mapRes = array.reduce((acc, cv) => {
+    if (acc[keySelector(cv)]) {
+      acc[keySelector(cv)].push(valueSelector(cv));
+    } else if (!acc[keySelector(cv)]) {
+      acc[keySelector(cv)] = [];
+      acc[keySelector(cv)].push(valueSelector(cv));
+    }
+    return acc;
+  }, newMap);
+
+  const mapCollect = new Map(Object.entries(mapRes));
+  return mapCollect;
 }
 
 
@@ -596,8 +608,10 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  const newArr = arr.map((el) => childrenSelector(el));
+  const resArr = newArr.flat();
+  return resArr;
 }
 
 
@@ -613,8 +627,18 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  let res = 0;
+  function getEl(a, i) {
+    if (i.length !== 1) {
+      getEl(a[i.splice(0, 1)], i);
+    } else if (i.length === 1) {
+      res = a[i.splice(0, 1)];
+    }
+    return res;
+  }
+  getEl(arr, indexes);
+  return res;
 }
 
 
@@ -636,8 +660,16 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (arr.length <= 3) {
+    return arr.reverse();
+  }
+  const partLength = Math.floor(arr.length / 2);
+  const head = arr.splice(0, partLength);
+  const tail = arr.splice(arr.length - partLength, arr.length);
+  arr.unshift(...tail);
+  arr.push(...head);
+  return arr;
 }
 
 
